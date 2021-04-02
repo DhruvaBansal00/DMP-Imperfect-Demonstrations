@@ -1,23 +1,8 @@
-PyDMP
-=====
+pydmps
+======
 
-This is a very simple implementation of dynamic movement primitives (DMP) in
-Python. The main purpose of this implementation for me is to understand the
-behavior of DMPs.
+Dynamic movement primitives (DMPs) are a method of trajectory control / planning from Stefan Schaal’s lab. They were presented way back in 2002 in this paper (http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.142.3886), and then updated in 2013 by Auke Ijspeert in this paper (http://www-clmc.usc.edu/publications/I/ijspeert-NC2013.pdf). This work was motivated by the desire to find a way to represent complex motor actions that can be flexibly adjusted without manual parameter tuning or having to worry about instability.
 
-An illustrative notebook can be found
-[here](https://github.com/AlexanderFabisch/PyDMP/blob/master/DMP.ipynb).
+This repository is a Python implementation of DMPs, with accompanying tutorials and applications that can be found at http://studywolf.wordpress.com/category/robotics/dynamic-movement-primitive/
 
-The papers that I used to implement DMPs are
-
-* P. Pastor, H. Hoffmann, T. Asfour, S. Schaal: Learning and Generalization of
-  Motor Skills by Learning from Demonstration
-  [PDF](http://www-clmc.usc.edu/publications/P/pastor-ICRA2009.pdf)
-* A.J. Ijspeert, J. Nakanishi, H. Hoffmann, P. Pastor, S. Schaal:
-  Dynamical movement primitives: learning attractor models for motor behaviors
-
-Travis DeWolf published some interesting articles about DMPs in his blog:
-
-* [Part 1](https://studywolf.wordpress.com/2013/11/16/dynamic-movement-primitives-part-1-the-basics/)
-* [Part 2](https://studywolf.wordpress.com/2013/12/05/dynamic-movement-primitives-part-2-controlling-a-system-and-comparison-with-direct-trajectory-control/)
-* [Part 3](https://studywolf.wordpress.com/2014/03/07/dynamic-movement-primitives-part-3-rhythmic-movements/)
+All that's required for the installation and running of the code is ```numpy```. To run the test code you will also need ```matplotlib``` for displaying the results.
