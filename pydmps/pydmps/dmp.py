@@ -155,8 +155,10 @@ class DMPs(object):
 
     def rollout(self, timesteps=None, **kwargs):
         """Generate a system trial, no feedback is incorporated."""
-
-        self.reset_state()
+        if "curr_state" in kwargs:
+            self.reset_state(kwargs["curr_state"])
+        else:
+            self.reset_state()
 
         if timesteps is None:
             if "tau" in kwargs:
@@ -176,14 +178,14 @@ class DMPs(object):
 
         return y_track, dy_track, ddy_track
 
-    def reset_state(self):
+    def reset_state(self, curr_state=None):
         """Reset the system state"""
-        self.y = self.y0.copy()
+        self.y = self.y0.copy() if curr_state is None else curr_state
         self.dy = np.zeros(self.n_dmps)
         self.ddy = np.zeros(self.n_dmps)
         self.cs.reset_state()
 
-    def step(self, tau=1.0, error=0.0, external_force=None):
+    def step(self, tau=1.0, error=0.0, external_force=None, **kwargs):
         """Run the DMP system for a single timestep.
 
         tau float: scales the timestep
