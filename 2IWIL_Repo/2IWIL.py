@@ -6,6 +6,7 @@ import gym.spaces
 import scipy.optimize
 import numpy as np
 import math
+import tqdm
 
 import torch
 import torch.nn as nn
@@ -256,7 +257,7 @@ if args.noconf:
 
 writer = Writer(args.env, args.seed, args.weight, 'mixture', args.prior, args.traj_size, folder=args.ofolder, fname=fname, noise=args.noise)
 
-for i_episode in range(args.num_epochs):
+for i_episode in tqdm.tqdm(range(args.num_epochs)):
     memory = Memory()
 
     num_steps = 0

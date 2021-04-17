@@ -47,7 +47,7 @@ def display_tra(original, new, timesteps):
 	plt.show()
 
 def analyze_dmp_MSE():
-	timestep_options = [50, 100, 200, 400, 800, 1600, 2998]
+	timestep_options = [50*(i+1) for i in range(58)]
 	MSE = []
 	for i in timestep_options:
 		total_timesteps = i
@@ -56,7 +56,7 @@ def analyze_dmp_MSE():
 		# y_des -= y_des[:, 0][:, None]
 
 		# test normal run
-		dmp = pydmps.dmp_discrete.DMPs_discrete(n_dmps=14, n_bfs=5000, ay=np.ones(14) * 50.0)
+		dmp = pydmps.dmp_discrete.DMPs_discrete(n_dmps=14, n_bfs=5000, ay=np.ones(14)*100)
 		y_track = []
 		dy_track = []
 		ddy_track = []
@@ -68,19 +68,19 @@ def analyze_dmp_MSE():
 		diff = np.mean((y_track - y_des)**2)
 		print("MSE = " + str(diff))
 		MSE.append(diff)
-		if total_timesteps == 50:
-			display_tra(y_des, y_track, total_timesteps)
+		# if total_timesteps == 50:
+		# 	display_tra(y_des, y_track, total_timesteps)
 
 	plt.figure(1)
 	plt.plot(timestep_options, MSE, "b", lw=2)
-	plt.title("MSE vs Timestep")
+	plt.title("MSE vs Training Interval")
 	plt.show()
 
 def test_dmp_diff_state():
 	total_timesteps = 50
 	y_des = np.load("optimal_traj.npy")[2*total_timesteps: 3*total_timesteps].T
 	print(y_des.shape)
-	dmp = pydmps.dmp_discrete.DMPs_discrete(n_dmps=14, n_bfs=5000, ay=np.ones(14) * 50.0)
+	dmp = pydmps.dmp_discrete.DMPs_discrete(n_dmps=14, n_bfs=5000, ay=np.ones(14) * 100.0)
 	y_track = []
 	dy_track = []
 	ddy_track = []
@@ -98,7 +98,7 @@ def test_dmp_diff_state():
 def analyze_dmp_MSE_diff_state():
 	total_timesteps = 50
 	y_train = np.load("optimal_traj.npy")[: total_timesteps].T
-	dmp = pydmps.dmp_discrete.DMPs_discrete(n_dmps=14, n_bfs=5000, ay=np.ones(14) * 50.0)
+	dmp = pydmps.dmp_discrete.DMPs_discrete(n_dmps=14, n_bfs=5000, ay=np.ones(14) * 100.0)
 	y_track = []
 	dy_track = []
 	ddy_track = []
@@ -114,10 +114,10 @@ def analyze_dmp_MSE_diff_state():
 	print(MSE)
 
 	plt.figure(1)
-	plt.plot([i for i in range(50)], MSE, "b", lw=2)
-	plt.title("MSE vs start state (X 50)")
+	plt.plot([50*i for i in range(50)], MSE, "b", lw=2)
+	plt.title("MSE vs start state")
 	plt.show()
 		# print("MSE = " + str(diff))
 	# display_tra(y_ground_truth, y_track, total_timesteps)
-# test_dmp_diff_state()
-analyze_dmp_MSE_diff_state()
+# analyze_dmp_MSE_diff_state()
+analyze_dmp_MSE()
