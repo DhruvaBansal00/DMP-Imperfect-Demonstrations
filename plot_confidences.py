@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import tqdm
 
 trajectory_location = '/home/dhruva/Desktop/DMP-Imperfect-Demonstrations/2IWIL_Repo/demonstrations/Ant-v2_mixture.npy'
-confidence_location = '/home/dhruva/Desktop/DMP-Imperfect-Demonstrations/2IWIL_Repo/demonstrations/Ant-v2_mixture_conf.npy'
+confidence_location = '/home/dhruva/Desktop/DMP-Imperfect-Demonstrations/2IWIL_Repo/demonstrations/Walker2d-v2_mixture_conf.npy'
 
 total_timesteps = int(np.load(confidence_location).shape[0]/100)
 

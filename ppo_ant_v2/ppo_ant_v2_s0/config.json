@@ -1,0 +1,44 @@
+{
+    "ac_kwargs":	{
+        "activation":	"Tanh",
+        "hidden_sizes":	[
+            64,
+            64
+        ]
+    },
+    "actor_critic":	"MLPActorCritic",
+    "clip_ratio":	0.2,
+    "env_fn":	"<function call_experiment.<locals>.thunk_plus.<locals>.<lambda> at 0x7fbbfadac620>",
+    "epochs":	100,
+    "exp_name":	"ppo_ant_v2",
+    "gamma":	0.99,
+    "lam":	0.97,
+    "logger":	{
+        "<spinup.utils.logx.EpochLogger object at 0x7fbbfa8b1550>":	{
+            "epoch_dict":	{},
+            "exp_name":	"ppo_ant_v2",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"/home/dhruva/spinningup/data/ppo_ant_v2/ppo_ant_v2_s0",
+            "output_file":	{
+                "<_io.TextIOWrapper name='/home/dhruva/spinningup/data/ppo_ant_v2/ppo_ant_v2_s0/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"ppo_ant_v2",
+        "output_dir":	"/home/dhruva/spinningup/data/ppo_ant_v2/ppo_ant_v2_s0"
+    },
+    "max_ep_len":	1000,
+    "pi_lr":	0.0003,
+    "save_freq":	10,
+    "seed":	0,
+    "steps_per_epoch":	4000,
+    "target_kl":	0.01,
+    "train_pi_iters":	80,
+    "train_v_iters":	80,
+    "vf_lr":	0.001
+}
