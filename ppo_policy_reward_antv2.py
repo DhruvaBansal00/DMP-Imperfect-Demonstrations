@@ -107,8 +107,8 @@ def save_all_augmentations():
         curr_reward, curr_length, all_trajectories, all_rewards = get_reward(i, 50, True)
         timestep_rewards.append(curr_reward)
         timestep_lengths.append(curr_length)
-        pickle.dump(all_trajectories, open(f'{base_directory}{iteration}_{i}_augmentations.pkl', 'wb'))
-        pickle.dump(all_rewards, open(f'{base_directory}{iteration}_{i}_rewards.pkl', 'wb'))
+        pickle.dump(all_trajectories, open(f'{base_directory}iteration_{i}_augmentations.pkl', 'wb'))
+        pickle.dump(all_rewards, open(f'{base_directory}iteration_{i}_rewards.pkl', 'wb'))
     
     print(np.average(timestep_lengths))
         
