@@ -44,9 +44,9 @@ def get_reward(start_timestep, max_timesteps=-1, get_augmentations=False):
         total_reward[traj_iteration] += reward
         curr_length += 1
         curr_trajectory.append(list(observation))
-        
+
         if done or curr_length == max_timesteps:
-            total_length.apped(curr_length)
+            total_length.append(curr_length)
             curr_length = 0
             traj_iteration += 1
             observation = reset_gym_env(env, trajectory_location, start_timestep)
@@ -96,7 +96,7 @@ def plot_all_reward_vs_timestep():
     with open('antv2_all_lenghts.npy', 'wb') as f:
         np.save(f, timestep_lengths)
 
-def save_augmentations():
+def save_all_augmentations():
     base_directory = "Augmentations/Ant-v2/"
 
     total_timesteps = int(np.load(trajectory_location).shape[0])
@@ -122,4 +122,4 @@ def save_augmentations():
     with open('antv2_all_lenghts.npy', 'wb') as f:
         np.save(f, timestep_lengths)
 
-plot_reward_vs_timestep()
+save_all_augmentations()
