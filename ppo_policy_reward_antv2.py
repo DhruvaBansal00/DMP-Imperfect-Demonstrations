@@ -37,13 +37,14 @@ def get_reward(start_timestep, max_timesteps=-1, get_augmentations=False):
     total_length = []
     curr_length = 0
     all_trajectories = []
-    curr_trajectory = [list(observation)]
+    curr_trajectory = [[list(observation)]]
     while traj_iteration < 10:
         action = ppo_policy(observation)
         observation, reward, done, info = env.step(action)
         total_reward[traj_iteration] += reward
         curr_length += 1
-        curr_trajectory.append(list(observation))
+        curr_trajectory[-1].append(list(action))
+        curr_trajectory.append([list(observation)])
 
         if done or curr_length == max_timesteps:
             total_length.append(curr_length)
@@ -51,7 +52,7 @@ def get_reward(start_timestep, max_timesteps=-1, get_augmentations=False):
             traj_iteration += 1
             observation = reset_gym_env(env, trajectory_location, start_timestep)
             all_trajectories.append(curr_trajectory)
-            curr_trajectory = [list(observation)]
+            curr_trajectory = [[list(observation)]]
             total_reward.append(0)
     env.close()
     if get_augmentations:
@@ -104,7 +105,7 @@ def save_all_augmentations():
     timestep_rewards = []
     timestep_lengths = []
     for i in tqdm.tqdm(range(total_timesteps)):
-        curr_reward, curr_length, all_trajectories, all_rewards = get_reward(i, 50, True)
+        curr_reward, curr_length, all_trajectories, all_rewards = get_reward(i, 51, True)
         timestep_rewards.append(curr_reward)
         timestep_lengths.append(curr_length)
         pickle.dump(all_trajectories, open(f'{base_directory}iteration_{i}_augmentations.pkl', 'wb'))
