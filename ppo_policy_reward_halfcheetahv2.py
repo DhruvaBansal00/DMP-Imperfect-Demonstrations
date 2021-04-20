@@ -22,7 +22,7 @@ def reset_gym_env(traj_file, start_timestep):
     observation = env.reset()
     first_traj_init = np.load(traj_file)[start_timestep]
     old_state = env.state_vector()
-    qpos = np.concatenate(np.array([old_state[0]]), first_traj_init[:8])
+    qpos = np.append(np.array([old_state[0]]), first_traj_init[:8])
     qvel = first_traj_init[8:17]
     env.set_state(qpos, qvel)
     return get_obs(first_traj_init[:8], first_traj_init[8:17])
