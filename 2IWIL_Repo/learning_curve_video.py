@@ -35,7 +35,7 @@ def create_video():
 
 
 	policy_net = Policy(num_inputs, num_actions, 100)
-	policy_net.load_state_dict(torch.load('log/2IWIL_ANT/Ant-v2_1111_True_mixture_0.2_600.pt'))
+	policy_net.load_state_dict(torch.load('log/ICGAIL_ANT/Ant-v2_1111_mixture_0.2_600.pt'))
 	policy_net.eval()
 
 	env = gym.make("Ant-v2")
@@ -54,7 +54,7 @@ def create_video():
 	print(f' Average Reward: {total_reward/traj_iteration}')
 
 def create_curve():
-	learning_curve_file = open('log/2IWIL_ANT/Ant-v2_1111_weight_mixture_0.2000_600.csv', 'r')
+	learning_curve_file = open('log/ICGAIL_ANT/Ant-v2_1111_mixture_0.2000_600_0.7_ucGAIL.csv', 'r')
 	X = []
 	Y = []
 
@@ -67,4 +67,4 @@ def create_curve():
 	plt.plot(X, Y)
 	plt.show()
 
-create_curve()
+create_video()
