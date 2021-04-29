@@ -53,6 +53,8 @@ parser.add_argument('--batch-size', type=int, default=5000, metavar='N',
                     help='size of a single batch')
 parser.add_argument('--log-interval', type=int, default=1, metavar='N',
                     help='interval between training status logs (default: 10)')
+parser.add_argument('--save-interval', type=int, default=100, metavar='N',
+                    help='interval between training model save (default: 100)')
 parser.add_argument('--fname', type=str, default='expert', metavar='F',
                     help='the file name to save trajectory')
 parser.add_argument('--num-epochs', type=int, default=500, metavar='N',
@@ -337,4 +339,7 @@ for i_episode in tqdm.tqdm(range(args.num_epochs)):
 
     if i_episode % args.log_interval == 0:
         print('Episode {}\tAverage reward: {:.2f}\tMax reward: {:.2f}\tLoss (disc): {:.2f}'.format(i_episode, np.mean(reward_batch), max(reward_batch), disc_loss.item()))
+
+    if i_episode % args.save_interval == 0:
+        torch.save(policy_net.state_dict(), f'log/{args.env}_{args.seed}_{args.weight}_mixture_{args.prior}_{args.traj_size}.pt')
 

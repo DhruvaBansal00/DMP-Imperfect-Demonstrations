@@ -6,6 +6,7 @@ import gym.spaces
 import scipy.optimize
 import numpy as np
 import math
+import tqdm
 
 import torch
 import torch.nn as nn
@@ -45,6 +46,8 @@ parser.add_argument('--batch-size', type=int, default=5000, metavar='N',
                     help='size of a single batch')
 parser.add_argument('--log-interval', type=int, default=1, metavar='N',
                     help='interval between training status logs (default: 10)')
+parser.add_argument('--save-interval', type=int, default=100, metavar='N',
+                    help='interval between training model save (default: 100)')
 parser.add_argument('--num-epochs', type=int, default=500, metavar='N',
                     help='number of epochs to train an expert')
 parser.add_argument('--hidden-dim', type=int, default=100, metavar='H',
@@ -205,7 +208,7 @@ pblabel = args.pbound
 fname = 'ucGAIL'
 writer = Writer(args.env, args.seed, False, 'mixture', args.prior, args.traj_size, folder=args.ofolder, fname=fname, pbound=pblabel, noise=args.noise)
 
-for i_episode in range(args.num_epochs):
+for i_episode in tqdm.tqdm(range(args.num_epochs)):
     memory = Memory()
 
     num_steps = 0
@@ -290,3 +293,6 @@ for i_episode in range(args.num_epochs):
 
     if i_episode % args.log_interval == 0:
         print('Episode {}\tAverage reward: {:.2f}\tMax reward: {:.2f}\tLoss (disc): {:.2f}'.format(i_episode, np.mean(reward_batch), max(reward_batch), disc_loss.item()))
+
+    if i_episode % args.save_interval == 0:
+        torch.save(policy_net.state_dict(), f'log/{args.env}_{args.seed}_mixture_{args.prior}_{args.traj_size}.pt')
