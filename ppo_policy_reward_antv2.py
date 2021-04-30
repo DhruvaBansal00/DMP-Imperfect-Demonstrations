@@ -70,6 +70,10 @@ def plot_reward_vs_timestep():
         timestep_lengths.append(curr_length)
     
     print(np.average(timestep_lengths))
+    
+    plt.xlabel("Timestep", fontsize=20)
+    plt.ylabel("Reward", fontsize=20)
+    plt.title("Policy reward rolling from given timestep", fontsize=20)
     plt.plot([i for i in range(total_timesteps)], timestep_rewards)
     plt.show()
     plt.plot([i for i in range(total_timesteps)], timestep_lengths)
@@ -78,15 +82,18 @@ def plot_reward_vs_timestep():
 def plot_all_reward_vs_timestep():
     total_timesteps = int(np.load(trajectory_location).shape[0])
 
-    timestep_rewards = []
-    timestep_lengths = []
-    for i in tqdm.tqdm(range(total_timesteps)):
-        curr_reward, curr_length = get_reward(i, 50)
-        timestep_rewards.append(curr_reward)
-        timestep_lengths.append(curr_length)
+    # timestep_rewards = []
+    # timestep_lengths = []
+    # for i in tqdm.tqdm(range(total_timesteps)):
+    #     curr_reward, curr_length = get_reward(i, 50)
+    #     timestep_rewards.append(curr_reward)
+    #     timestep_lengths.append(curr_length)
     
-    print(np.average(timestep_lengths))
-        
+    # print(np.average(timestep_lengths))
+    timestep_rewards = np.load('antv2_all_rewards.npy')
+    plt.xlabel("Timestep", fontsize=20)
+    plt.ylabel("Reward", fontsize=20)
+    plt.title("Policy reward rolling from given timestep", fontsize=20)
     plt.plot([i for i in range(total_timesteps)], timestep_rewards)
     plt.show()
     plt.plot([i for i in range(total_timesteps)], timestep_lengths)
@@ -123,4 +130,4 @@ def save_all_augmentations():
     with open('antv2_all_lenghts.npy', 'wb') as f:
         np.save(f, timestep_lengths)
 
-save_all_augmentations()
+plot_all_reward_vs_timestep()

@@ -59,9 +59,9 @@ def create_video():
 	print(f' Average Reward: {np.mean(total_reward)} Standard Deviation: {np.std(total_reward)}')
 
 def create_curve():
-	# learning_curve_file = open('log/Mixed2IWIL/Ant-v2_1111_weight_mixture_0.2000_4000.csv', 'r')
+	learning_curve_file = open('log/Mixed2IWIL/Ant-v2_1111_weight_mixture_0.2000_4000.csv', 'r')
 	# learning_curve_file = open('log/ICGAIL_ANT/Ant-v2_1111_mixture_0.2000_600_0.7_ucGAIL.csv', 'r')
-	learning_curve_file = open('log/2IWIL_ANT/Ant-v2_1111_weight_mixture_0.2000_600.csv', 'r')
+	# learning_curve_file = open('log/2IWIL_ANT/Ant-v2_1111_weight_mixture_0.2000_600.csv', 'r')
 	X = []
 	Y = []
 	Error = []
@@ -83,11 +83,13 @@ def create_curve():
 			curr_buffer = []
 
 	plt.errorbar(X, Y, yerr=Error, c=(random.random(), random.random(), random.random()), ecolor=(random.random(), random.random(), random.random()), capsize=2.0)
-	plt.xlabel("Epochs")
-	plt.ylabel("Average Return (100 games)")
+	plt.xlabel("Epochs", fontsize=24)
+	plt.ylabel("Average Return (100 games)", fontsize=24)
 	plt.ylim([-1000, 5000])
+	plt.yticks(fontsize=20)
 	plt.xlim([0, 5000])
-	plt.title("2IWIL Learning Curve")
+	plt.xticks(fontsize=20)
+	plt.title("Mix2IWIL Learning Curve", fontsize=24)
 	plt.show()
 
-create_video()
+create_curve()

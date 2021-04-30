@@ -37,7 +37,7 @@ def display_trajectory(start_timestep):
         observation, reward, done, info = env.step(action)
         total_reward += reward
         curr_step += 1
-        if done or curr_step >= 50:
+        if done or curr_step >= 10000000:
             curr_step = 0
             traj_iteration += 1
             observation = reset_gym_env(env, trajectory_location, start_timestep)
