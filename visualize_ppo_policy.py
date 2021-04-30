@@ -3,6 +3,7 @@ import numpy as np
 from spinup.utils.test_policy import load_policy_and_env
 import tqdm
 import matplotlib.pyplot as plt
+import time
 
 trajectory_location = '/home/dhruva/Desktop/DMP-Imperfect-Demonstrations/2IWIL_Repo/demonstrations/Ant-v2_mixture.npy'
 PPO_policy_location = '/home/dhruva/spinningup/data/ppo_ant_v2/ppo_ant_v2_s0'
@@ -29,12 +30,15 @@ def display_trajectory(start_timestep):
     observation = reset_gym_env(env, trajectory_location, start_timestep)
     traj_iteration = 0
     total_reward = 0
+    curr_step = 0
     while traj_iteration < 10:
         env.render()
         action = ppo_policy(observation)
         observation, reward, done, info = env.step(action)
         total_reward += reward
-        if done:
+        curr_step += 1
+        if done or curr_step >= 50:
+            curr_step = 0
             traj_iteration += 1
             observation = reset_gym_env(env, trajectory_location, start_timestep)
     env.close()
